@@ -63,13 +63,13 @@ function init() {
             
             let match = null;
             let bestScore = -1;
-            for (let i=0;i<data.length;++i) {
-                let maxScoreForThisClass = Math.max(...data[i].class_probability);
-                if(maxScoreForThisClass>bestScore) {
-                    match = data[i];
-                    bestScore = maxScoreForThisClass;
-                }
+            
+            let maxScoreForThisClass = Math.max(...data[0].class_probability);
+            if(maxScoreForThisClass>bestScore) {
+                match = data[0];
+                bestScore = maxScoreForThisClass;
             }
+            
             if (match) {
                 $("#error").hide();
                 $("#resultHolder").show();
@@ -83,7 +83,7 @@ function init() {
                     $(elementName).html(proabilityScore);
                 }
             }
-            // dz.removeFile(file);            
+             //dz.removeFile(file);            
         });
     });
 

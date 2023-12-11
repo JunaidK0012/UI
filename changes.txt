@@ -1,0 +1,31 @@
+let match = [];
+            let bestScore = [];
+            count=1
+            for (let i=0;i<data.length;++i) {
+                let maxScoreForThisClass = Math.max(...data[i].class_probability);
+                if(maxScoreForThisClass>bestScore[count-1]||bestScore.length === 0) {
+                    match[count-1] = data[i];
+                    bestScore[count-1] = maxScoreForThisClass;
+                }
+                count++;
+            }
+            
+            for (let i = 0; i < match.length; ++i) {
+                let currentMatch = match[i];
+                if (currentMatch){
+
+                    $("#error").hide();
+                    $("#resultHolder").show();
+                    $("#divClassTable").show();
+                    $("#resultHolder").html($(`[data-player="${currentMatch.class}"`).html());
+    
+                    let classDictionary = currentMatch.class_dictionary;
+                    for(let personName in classDictionary) {
+                        let index = classDictionary[personName];
+                        let proabilityScore = currentMatch.class_probability[index];
+                        let elementName = "#score_" + personName;
+                        $(elementName).html(proabilityScore);
+                    }
+                }
+            }
+            
