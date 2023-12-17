@@ -57,24 +57,31 @@ function init() {
                 $("#divClassTable").hide();
                 $("#error").show();
                 return;
-            }            
+            }
             let match = [];
-            $("#resultHolder").empty(); // Clear the resultHolder
+            // Clear the resultHolder
+            $("#resultHolder").empty();
+            $("#divClassTable").empty();
             for (let i = 0; i < data.length; i++) {
                 match = data[i];
                 if (match) {
                     $("#error").hide();
                     $("#resultHolder").show();
                     $("#divClassTable").show();
-                    // $("#resultHolder").html($(`[data-player="${match.class}"`).html());
                     $("#resultHolder").append($(`[data-player="${match.class}"`).html());
                     let classDictionary = match.class_dictionary;
+                    // Create a new table for this player's result
+                    let $table = $('<table>').attr('id', 'classTable');
+                    $table.append('<tr><th>Player</th><th>Probability Score</th></tr>');
                     for (let personName in classDictionary) {
                         let index = classDictionary[personName];
                         let proabilityScore = match.class_probability[index];
-                        let elementName = "#score_" + personName;
-                        $(elementName).html(proabilityScore);
+                        $table.append(`<tr><td>${personName}</td><td>${proabilityScore}</td></tr>`);
                     }
+
+                    // Append this player's result table to the divClassTable
+                    $("#divClassTable").append($table);
+
                 }
                 //dz.removeFile(file);            
                 console.log("i : ", i);
